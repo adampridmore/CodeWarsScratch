@@ -1,8 +1,7 @@
-module Tests
+module SquareOrSquareRoot
 
 open System
 open Xunit
-open System.Data.SqlTypes
 
 // https://www.codewars.com/kata/to-square-root-or-not-to-square-root/train/fsharp
 

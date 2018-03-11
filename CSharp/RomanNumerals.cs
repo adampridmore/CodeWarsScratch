@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 using System.IO;
 using FluentAssertions;
+using Xunit.Abstractions;
 
 //https://www.codewars.com/kata/roman-numerals-encoder/train/csharp
 
@@ -45,9 +46,6 @@ namespace CSharp
             text.Replace("VIIII", "IX");
             text.Replace("IIII", "IV");
 
-            // text.Replace("LXXXX", "XC");
-            // text.Replace("DCCCC", "CM");
-
             return text.ToString();
         }
 
@@ -64,18 +62,12 @@ namespace CSharp
             Assert.Equal(expectedText, Solution(number));
         }
 
-        //[Fact]
-        //public void test()
-        //{
-        //    Solution(900).Should().Be("CM");            
-        //}
-  
         [Fact]
         public void Csv_test(){
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
                         
             var resource = assembly.GetManifestResourceStream("CSharp.Resources.RomanNumerals.csv");
-
+            
             var tr = new StreamReader(resource);
             var text = tr.ReadToEnd();
             var lines = text.Split("\r\n");
@@ -89,8 +81,6 @@ namespace CSharp
                 var expectedRomanNumeral = testValue.Item2;
 
                 Solution(number).Should().Match(expectedRomanNumeral,"values was " + number.ToString());
-
-                //Assert.Equal(testValue.Item2, Solution(testValue.Item1));
             }
         }
     }

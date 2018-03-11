@@ -1,5 +1,5 @@
 /Old
-/CSharp/obj
 /.vs
 /.vscode
-/CSharp/bin
+bin
+obj

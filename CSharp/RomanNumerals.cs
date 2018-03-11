@@ -1,9 +1,10 @@
 using System.Text;
 using System.Collections.Generic;
-using Xunit;
 using System.Linq;
 using System;
 using System.IO;
+
+using Xunit;
 using FluentAssertions;
 using Xunit.Abstractions;
 

@@ -5,10 +5,10 @@ open System
 
 // https://www.codewars.com/kata/fake-binary/train/fsharp
 let fakeBin (x:string) = 
-    let convert i = if i < 5 then '0' else '1'
+    let convert i = if i < 5.0 then '0' else '1'
 
     x.ToCharArray()
-    |> Seq.map (string >> Int32.Parse >> convert)
+    |> Seq.map (Char.GetNumericValue >> convert)
     |> string
 
 [<Fact>]

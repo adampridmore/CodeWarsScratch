@@ -7,7 +7,7 @@ public static class Kata
 {
     public static string FridayTheThirteenths(int Start, int End = int.MinValue)
     {
-        var start = new DateTime(Start, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        var start = new DateTime(Start, 1, 13, 0, 0, 0, DateTimeKind.Utc);
 
         DateTime end;
         if (End == int.MinValue)
@@ -21,9 +21,9 @@ public static class Kata
 
         var results = new List<DateTime>();
 
-        for (var day = start; day <= end; day = day + TimeSpan.FromDays(1))
+        for (var day = start; day <= end; day = day.AddMonths(1))
         {
-            if (day.Day == 13 && day.DayOfWeek == DayOfWeek.Friday)
+            if (day.DayOfWeek == DayOfWeek.Friday)
             {
                 results.Add(day);
             }

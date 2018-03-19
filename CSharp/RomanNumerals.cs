@@ -69,8 +69,9 @@ namespace CSharp
             var resource = assembly.GetManifestResourceStream("CSharp.Resources.RomanNumerals.csv");
 
             var tr = new StreamReader(resource);
-            var text = tr.ReadToEnd();
-            var lines = text.Split("\r\n");
+                        
+            var text = tr.ReadLine();
+            var lines = text.Split(new[] {"\r\n", "\r"}, StringSplitOptions.None);
 
             var testValues = lines
                 .Select(line => line.Split(","))

@@ -34,16 +34,7 @@ public static class Kata
         while (true)
         {
             yield return day;
-            try
-            {
-                day = day.AddMonths(1);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(day);
-                throw ex;
-            }
-
+            day = day.AddMonths(1);
         }
     }
 }

@@ -5,32 +5,41 @@ using System.Linq;
 
 public static class Kata
 {
-    public static string FridayTheThirteenths(int Start, int End = int.MinValue)
+    public static string FridayTheThirteenths(int start, int? end)
     {
-        var start = new DateTime(Start, 1, 13, 0, 0, 0, DateTimeKind.Utc);
-
-        DateTime end;
-        if (End == int.MinValue)
-        {
-            end = start + TimeSpan.FromDays(365);
-        }
-        else
-        {
-            end = new DateTime(End + 1, 1, 1, 0, 0, 0, DateTimeKind.Utc) - TimeSpan.FromDays(1);
-        }
+        DateTime endDateTime = CreateEndDateTime(end);
 
         var results = new List<DateTime>();
 
-        for (var day = start; day <= end; day = day.AddMonths(1))
-        {
-            if (day.DayOfWeek == DayOfWeek.Friday)
-            {
-                results.Add(day);
-            }
-        }
+        var dates =
+            Get13thOfMonths(start)
+            .Where(day => day < endDateTime)
+            .Select(dt => $"{dt.Month}/{dt.Day}/{dt.Year}");
 
-        return String.Join(" ", results
-            .Select(dt => $"{dt.Month}/{dt.Day}/{dt.Year}"));
+        return String.Join(" ", dates);
+    }
+
+    private static DateTime CreateEndDateTime(int? End, int Start)
+    {
+        if (End.HasValue)
+        {
+            return new DateTime(End.Value + 1, 1, 1, 0, 0, 0, DateTimeKind.Utc) - TimeSpan.FromDays(1);
+        }
+        else
+        {
+            return new DateTime(Start, 1, 1) + TimeSpan.FromDays(365);
+        }
+    }
+
+    private static IEnumerable<DateTime> Get13thOfMonths(int startYear)
+    {
+        var day = new DateTime(startYear, 1, 13);
+        yield return day;
+        while (true)
+        {
+            day = day.AddMonths(1);
+            yield return day;
+        }
     }
 }
 

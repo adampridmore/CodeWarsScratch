@@ -27,7 +27,7 @@ public class SolutionTest {
 
     @Test
     public void simple_0_move_jump() {
-        String[] program = new String[]{"mov a 5","jnz 2 a","dec a", "dec a"};
+        String[] program = new String[]{"mov a 5","jnz 10 2","dec a", "dec a"};
 
         Map<String, Integer> out = new HashMap<>();
         out.put("a", 4);
@@ -46,7 +46,7 @@ public class SolutionTest {
 
     @Test
     public void simple_0_move_jump_skip_on_zero() {
-        String[] program = new String[]{"mov a 0","jnz 2 a","dec a", "dec a"};
+        String[] program = new String[]{"mov a 0","jnz a 2","dec a", "dec a"};
 
         Map<String, Integer> out = new HashMap<>();
         out.put("a", -2);
@@ -60,6 +60,45 @@ public class SolutionTest {
         Map<String, Integer> out = new HashMap<>();
         out.put("a", 1);
         assertEquals(out, SimpleAssembler.interpret(program));
+    }
+
+    @Test
+    public void jump_loop() {
+        String[] program = new String[]{"mov a 2","dec a","jnz a -1"};
+
+        Map<String, Integer> out = new HashMap<>();
+        out.put("a", 0);
+        assertEquals(out, SimpleAssembler.interpret(program));
+    }
+
+    @Test
+    public void JumpCommand_when_zero(){
+        SimpleAssembler.JnzCommand command = new SimpleAssembler.JnzCommand("0", "10");
+        assertEquals(1, command.Execute(new HashMap<>()));
+    }
+
+    @Test
+    public void JumpCommand_when_number(){
+        SimpleAssembler.JnzCommand command = new SimpleAssembler.JnzCommand("1", "10");
+        assertEquals(10, command.Execute(new HashMap<>()));
+    }
+
+    @Test
+    public void JumpCommand_when_register_zero(){
+        HashMap<String, Integer> registers = new HashMap<>();
+        registers.put("a", 0);
+
+        SimpleAssembler.JnzCommand command = new SimpleAssembler.JnzCommand("a", "10");
+        assertEquals(1, command.Execute(registers));
+    }
+
+    @Test
+    public void JumpCommand_when_register_number(){
+        HashMap<String, Integer> registers = new HashMap<>();
+        registers.put("a", 5);
+
+        SimpleAssembler.JnzCommand command = new SimpleAssembler.JnzCommand("a", "10");
+        assertEquals(10, command.Execute(registers));
     }
 
     @Test

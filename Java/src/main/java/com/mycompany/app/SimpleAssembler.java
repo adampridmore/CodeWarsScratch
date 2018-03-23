@@ -17,9 +17,9 @@ public class SimpleAssembler {
 
 
         for (int programCounter = 0; programCounter < commands.size(); ) {
-            int jump = commands
-                    .get(programCounter)
-                    .Execute(registers);
+            Command command = commands.get(programCounter);
+            int jump = command.Execute(registers);
+
             programCounter += jump;
         }
 
@@ -50,7 +50,7 @@ public class SimpleAssembler {
         }
     }
 
-    private static abstract class Command {
+    public static abstract class Command {
         public abstract int Execute(Map<String, Integer> registers);
     }
 
@@ -94,25 +94,33 @@ public class SimpleAssembler {
         }
     }
 
-    private static class JnzCommand extends Command {
+    public static class JnzCommand extends Command {
         private final String x;
         private final String y;
 
-        JnzCommand(String x, String y) {
+        public JnzCommand(String x, String y) {
             this.x = x;
             this.y = y;
         }
 
         @Override
         public int Execute(Map<String, Integer> registers) {
-            if (registers.get(y) == 0){
-                return 1;
+            Integer value;
+            try {
+                value = Integer.parseInt(x);
+            } catch (NumberFormatException e) {
+                value = registers.get(x);
             }
 
-            try {
-                return Integer.parseInt(x);
-            } catch (NumberFormatException e) {
-                return registers.get(x);
+            if (value == 0){
+                return 1;
+            }
+            else {
+                try {
+                    return Integer.parseInt(y);
+                } catch (NumberFormatException e) {
+                    return registers.get(y);
+                }
             }
         }
     }

@@ -3,3 +3,6 @@
 /.vscode
 bin
 obj
+/Java/.idea
+/Java/target
+/Java/*.iml

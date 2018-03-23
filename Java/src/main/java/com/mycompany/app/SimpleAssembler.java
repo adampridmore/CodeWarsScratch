@@ -26,10 +26,6 @@ public class SimpleAssembler {
         return registers;
     }
 
-    //    mov x y
-    //    inc x
-    //    dec x
-    //    jnz x y
     private static Command ParseCommandText(String commandText) {
         String[] parts = commandText.split(" ");
         switch (parts[0]) {

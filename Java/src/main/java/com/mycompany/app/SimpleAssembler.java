@@ -30,7 +30,7 @@ public class SimpleAssembler {
     //    inc x
     //    dec x
     //    jnz x y
-    static Command ParseCommandText(String commandText) {
+    private static Command ParseCommandText(String commandText) {
         String[] parts = commandText.split(" ");
         switch (parts[0]) {
             case "mov":
@@ -56,25 +56,21 @@ public class SimpleAssembler {
 
     private static class MoveCommand extends Command {
         private final String x;
-        private String y;
+        private final String y;
 
-        public MoveCommand(String x, String y) {
+        MoveCommand(String x, String y) {
             this.x = x;
             this.y = y;
         }
 
         @Override
         public int Execute(Map<String, Integer> registers) {
-
-//            try {
-//                return Integer.parseInt(y);
-//            } catch (NumberFormatException e) {
-//                Integer val = registers.get(y);
-//                registers.put(x, val);
-//            }
-
-
-            registers.put(x, Integer.parseInt(y));
+            try {
+                registers.put(x,Integer.parseInt(y));
+            } catch (NumberFormatException e) {
+                Integer val = registers.get(y);
+                registers.put(x, val);
+            }
 
             return 1;
         }
@@ -83,7 +79,7 @@ public class SimpleAssembler {
     private static class IncCommand extends Command {
         private String x;
 
-        public IncCommand(String x) {
+        IncCommand(String x) {
 
             this.x = x;
         }
@@ -102,7 +98,7 @@ public class SimpleAssembler {
         private final String x;
         private final String y;
 
-        public JnzCommand(String x, String y) {
+        JnzCommand(String x, String y) {
             this.x = x;
             this.y = y;
         }
@@ -124,7 +120,7 @@ public class SimpleAssembler {
     private static class DecCommand extends Command {
         private String x;
 
-        public DecCommand(String x) {
+        DecCommand(String x) {
             this.x = x;
         }
 

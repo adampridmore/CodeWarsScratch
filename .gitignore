@@ -1,8 +1,13 @@
 /Old
 /.vs
+/DotNet/.vscode
 /.vscode
 bin
 obj
 /Java/.idea
 /Java/target
 /Java/*.iml
+/Java/*.classpath
+/Java/*.project
+/Java/.settings
+/DotNet/.vs

@@ -6,7 +6,6 @@
     <Compile Include="SquareOrSquareRoot.fs" />
     <Compile Include="GetNumberFromString.fs" />
     <Compile Include="FakeBinary.fs" />
-
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

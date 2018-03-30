@@ -14,19 +14,19 @@ namespace LoopDetector
             System.Collections.Generic.Dictionary<LoopDetector.Node, int> previousNodes = new System.Collections.Generic.Dictionary<LoopDetector.Node, int>();
 
             var currentNode = startNode;
-            int currentIndex = 0;
-            do
+            var currentIndex = 0;
+            while(true)
             {
                 int loopStartIndex;
+                currentIndex++;
                 if (previousNodes.TryGetValue(currentNode, out loopStartIndex))
                 {
-                    return currentIndex - loopStartIndex + 1;
+                    return currentIndex - loopStartIndex;
                 }
-                currentIndex++;
-                previousNodes.Add(currentNode, currentIndex);
+                
+                previousNodes[currentNode] = currentIndex;
                 currentNode = currentNode.next;
-
-            } while (true);
+            }
         }
     }
 

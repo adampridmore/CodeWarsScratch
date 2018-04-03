@@ -3,6 +3,8 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CalculateAverage.fs" />
+    <Compile Include="DescendingOrder.fs" />
     <Compile Include="SquareOrSquareRoot.fs" />
     <Compile Include="GetNumberFromString.fs" />
     <Compile Include="FakeBinary.fs" />
